@@ -13,6 +13,7 @@ import { registerSpecCommand } from '../commands/spec.js';
 import { ChangeCommand } from '../commands/change.js';
 import { ValidateCommand } from '../commands/validate.js';
 import { ShowCommand } from '../commands/show.js';
+import { AgentCommand, ReflectCommand } from '../core/agent/index.js';
 
 const program = new Command();
 const require = createRequire(import.meta.url);
@@ -243,6 +244,48 @@ program
     try {
       const showCommand = new ShowCommand();
       await showCommand.execute(itemName, options ?? {});
+    } catch (error) {
+      console.log();
+      ora().fail(`Error: ${(error as Error).message}`);
+      process.exit(1);
+    }
+  });
+
+// Agent command - Agentic workflow
+program
+  .command('agent <description>')
+  .description('🤖 Create a change using AI-powered workflow (Agentic mode)')
+  .option('--yes', 'Auto-confirm all prompts')
+  .option('--verbose', 'Show detailed analysis')
+  .action(async (description: string, options?: { yes?: boolean; verbose?: boolean }) => {
+    try {
+      const agentCommand = new AgentCommand('.');
+      await agentCommand.execute(description, {
+        autoConfirm: options?.yes,
+        verbose: options?.verbose
+      });
+    } catch (error) {
+      console.log();
+      ora().fail(`Error: ${(error as Error).message}`);
+      process.exit(1);
+    }
+  });
+
+// Reflect command - Analyze history and crystallize insights
+program
+  .command('reflect')
+  .description('🔮 Analyze archived changes and generate lessons-learned spec')
+  .option('--save', 'Save reflection report as lessons-learned spec')
+  .option('--json', 'Output as JSON')
+  .option('--verbose', 'Show detailed pattern analysis')
+  .action(async (options?: { save?: boolean; json?: boolean; verbose?: boolean }) => {
+    try {
+      const reflectCommand = new ReflectCommand('.');
+      await reflectCommand.execute({
+        save: options?.save,
+        json: options?.json,
+        verbose: options?.verbose
+      });
     } catch (error) {
       console.log();
       ora().fail(`Error: ${(error as Error).message}`);

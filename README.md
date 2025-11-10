@@ -242,7 +242,38 @@ openspec view               # Interactive dashboard of specs and changes
 openspec show <change>      # Display change details (proposal, tasks, spec updates)
 openspec validate <change>  # Check spec formatting and structure
 openspec archive <change> [--yes|-y]   # Move a completed change into archive/ (non-interactive with --yes)
+
+# 🤖 Agentic Workflow (AI-powered)
+openspec agent <description>  # Create change using intelligent workflow (auto-detects intent)
+openspec reflect [--save]     # Analyze archived changes and generate lessons-learned spec
 ```
+
+### Agentic Features
+
+OpenSpec includes powerful AI-driven capabilities to streamline your workflow:
+
+#### Agent Command
+Intelligently create changes based on natural language descriptions:
+```bash
+openspec agent "add user authentication"  # Auto-detects intent and generates workflow
+openspec agent "fix login bug" --verbose # Show detailed analysis
+```
+
+#### Reflect Command
+Automatically analyze historical changes and extract insights:
+```bash
+openspec reflect              # View reflection report
+openspec reflect --save       # Save insights as lessons-learned spec
+openspec reflect --json       # JSON output for CI/CD integration
+```
+
+The reflection engine:
+- 📊 Analyzes success rates and completion times
+- 🔍 Identifies successful patterns and anti-patterns
+- 💡 Generates data-driven recommendations
+- 📝 Crystallizes insights into reusable spec knowledge
+
+Learn more: [Reflection Engine Documentation](./docs/reflection-engine.md)
 
 ## Example: How AI Creates OpenSpec Files
 
